@@ -90,10 +90,6 @@ type executable interface {
 func (r *Runner) RunAll(ctx context.Context, sourceDirs []string) ([]Result, error) {
 	results := make([]Result, 0, len(r.Hook.Commands)+len(r.Hook.Scripts))
 
-	if err := r.runLFSHook(ctx); err != nil {
-		return results, err
-	}
-
 	if r.Hook.DoSkip(r.Repo.State()) {
 		r.logSkip(r.HookName, "hook setting")
 		return results, nil
